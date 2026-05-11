@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "System user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Board": {
+      "title": "Board",
+      "description": "A project board",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "members": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "columnOrder": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "Column": {
+      "title": "Column",
+      "description": "A column in a board",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "boardId": { "type": "string" },
+        "order": { "type": "number" },
+        "taskOrder": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A task card",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "priority": { "enum": ["low", "medium", "high"] },
+        "dueDate": { "type": "string", "format": "date-time" },
+        "boardId": { "type": "string" },
+        "columnId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "assignees": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment on a task",
+      "type": "object",
+      "properties": {
+        "taskId": { "type": "string" },
+        "userId": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Activity": {
+      "title": "Activity",
+      "description": "Log of board activity",
+      "type": "object",
+      "properties": {
+        "boardId": { "type": "string" },
+        "userId": { "type": "string" },
+        "action": { "type": "string" },
+        "targetId": { "type": "string" },
+        "targetType": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "boards/{boardId}": {
+      "schema": "Board",
+      "description": "Project boards"
+    },
+    "boards/{boardId}/columns/{columnId}": {
+      "schema": "Column",
+      "description": "Columns belonging to a board"
+    },
+    "boards/{boardId}/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Tasks belonging to a board"
+    },
+    "boards/{boardId}/tasks/{taskId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on a task"
+    },
+    "boards/{boardId}/activities/{activityId}": {
+      "schema": "Activity",
+      "description": "Access log for board actions"
+    }
+  }
+}

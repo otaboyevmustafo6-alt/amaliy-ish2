@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-natural-bg: #F8F7F2;
+  --color-natural-sidebar: #EAE7DC;
+  --color-natural-border: #D8D4C7;
+  --color-natural-accent: #8E9D7E;
+  --color-natural-accent-hover: #7D8C6D;
+  --color-natural-text: #4A4E4D;
+  --color-natural-text-muted: #5E625F;
+  --color-natural-input: #F2F1EC;
+  --color-natural-card-border: #EAE7DC;
+}
+
+@layer base {
+  body {
+    @apply bg-natural-bg text-natural-text antialiased font-sans;
+  }
+}
+
+.kanban-scrollbar::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.kanban-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.kanban-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-natural-border rounded-full hover:bg-natural-text-muted/30 transition-colors;
+}
